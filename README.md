@@ -2,7 +2,7 @@
 we are going to learn how to recover the accidentally deleted files (with skip-trash) command in hdfs.
 
 
----Follow this 8 step procedure for recovering accidental permanent deletion of file from HDFS----
+---Follow this 9 step procedure for recovering accidental permanent deletion of file from HDFS----
 
 please proceed with caution in production environments .
 
@@ -48,19 +48,42 @@ step-5: Convert the binary edits file to xml format. to convert it use the follo
   
 step-6: open the file and look for the trasaction which recordered delete operation of the file "/temp/file1" , the transactions will look like below:::
 
-# <RECORD>
-#  <OPCODE>OP_DELETE</OPCODE>
-#  <DATA>
-#    <TXID>*****</TXID>
-#    <LENGTH>0</LENGTH>
-#    <PATH>/temp/file1</PATH>
-#    <TIMESTAMP>************</TIMESTAMP>
-#    <RPC_CLIENTID>***************************</RPC_CLIENTID>
-#    <RPC_CALLID>1</RPC_CALLID>
-#  </DATA>
-# </RECORD>
+ <RECORD>
+  <OPCODE>OP_DELETE</OPCODE>
+  <DATA>
+    <TXID>*****</TXID>
+    <LENGTH>0</LENGTH>
+    <PATH>/temp/file1</PATH>
+    <TIMESTAMP>************</TIMESTAMP>
+    <RPC_CLIENTID>***************************</RPC_CLIENTID>
+    <RPC_CALLID>1</RPC_CALLID>
+  </DATA>
+ </RECORD>
 
 
 Remove the complete entry and save the xml file .
 
-step-7: 
+step-7: now convert the xml file into binary format using,
+
+ go to the current edits or fsimage directory 
+ 
+ cd /data/nn/current 
+ 
+ and then execute the below command with appropriate file names
+ 
+ hdfs oev -i edits_inprogess_*************.xml -o edits_inprogrss_************* -p binary
+ 
+step-8: if the transaction entry in the edits_inprogress is the last one , then you could just try to startup the namenode, which brings 
+you back the delected file. 
+ if the transaction entry is not the last one and in any other position then you must run recovery command as below
+  
+  hadoop namenode -recover
+  
+ step-9: now restart the HDFS service via "cloudera manager" or "ambari" and check for the deleted file.
+ 
+ 
+ this way u can recover the file deleted accidentally from hdfs using -skipTrash command.
+ 
+ 
+
+
