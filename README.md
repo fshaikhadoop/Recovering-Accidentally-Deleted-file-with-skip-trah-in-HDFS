@@ -1,6 +1,7 @@
 # Recovering-Accidentally-Deleted-file-with-skip-trah-in-HDFS
 we are going to learn how to recover the accidentally deleted files (with skip-trash) command in hdfs.
-
+  
+ Please open raw document for full article..., 
 
 ---Follow this 9 step procedure for recovering accidental permanent deletion of file from HDFS----
 
