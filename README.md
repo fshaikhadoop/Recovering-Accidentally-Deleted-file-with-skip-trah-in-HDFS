@@ -47,20 +47,18 @@ step-5: Convert the binary edits file to xml format. to convert it use the follo
   hdfs oev -i edits_inprogress_**************** -o edits_inprogress_************.xml 
   
 step-6: open the file and look for the trasaction which recordered delete operation of the file "/temp/file1" , the transactions will look like below:::
- 
- 
- 
- <RECORD>
-  <OPCODE>OP_DELETE</OPCODE>
-  <DATA>
-    <TXID>*****</TXID>
-    <LENGTH>0</LENGTH>
-    <PATH>/temp/file1</PATH>
-    <TIMESTAMP>************</TIMESTAMP>
-    <RPC_CLIENTID>***************************</RPC_CLIENTID>
-    <RPC_CALLID>1</RPC_CALLID>
-  </DATA>
- </RECORD>
+
+# <RECORD>
+#  <OPCODE>OP_DELETE</OPCODE>
+#  <DATA>
+#    <TXID>*****</TXID>
+#    <LENGTH>0</LENGTH>
+#    <PATH>/temp/file1</PATH>
+#    <TIMESTAMP>************</TIMESTAMP>
+#    <RPC_CLIENTID>***************************</RPC_CLIENTID>
+#    <RPC_CALLID>1</RPC_CALLID>
+#  </DATA>
+# </RECORD>
 
 
 Remove the complete entry and save the xml file .
